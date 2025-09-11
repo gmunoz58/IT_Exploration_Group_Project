@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Analytics Project - Customer Behavior Insights</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg,#1e3c72 0%, #2a5298 50%, #4a90e2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            margin-bottom: 30px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #4a90e2;
+        }
+
+        .header h1 {
+            font-size: 2.8rem;
+            color: #1e3c72;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header .subtitle {
+            font-size: 1.3rem;
+            color: #4a90e2;
+            font-weight: 400;
+            margin-bottom: 15px;
+        }
+
+        .header .course-info {
+            font-size: 1rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: #1e3c72;
+            margin-bottom: 20px;
+            padding-left: 15px;
+            border-left: 5px solid #4a90e2;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title::before {
+            content: "📊";
+            margin-right: 10px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .team-member {
+            background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .team-member:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 35px rgba(74, 144, 226, 0.25);
+            border-color: #4a90e2;
+        }
+
+        .team-member h3 {
+            color: #1e3c72;
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+        }
+
+        .team-member .role {
+            color: #4a90e2;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .team-member .email {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .content-area {
+            background: linear-gradient(145deg, #f8f9fa, #ffffff);
+            padding: 35px;
+            border-radius: 15px;
+            margin-top: 20px;
+            border-left: 5px solid #28a745;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .data-content {
+            border-left-color: #4a90e2;
+        }
+
+        .content-area h3 {
+            color: #1e3c72;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .content-area p {
+            color: #555;
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+        }
+
+        .content-area ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .content-area li {
+            color: #555;
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .metric-card {
+            background: linear-gradient(145deg, #4a90e2, #1e3c72);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .metric-card .number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .metric-card .label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background: #4a90e2;
+        }
+
+        .timeline-item {
+            position: relative;
+            background: linear-gradient(145deg, #f8f9fa, #ffffff);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            margin-left: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -33px;
+            top: 25px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #4a90e2;
+            border: 3px solid #fff;
+        }
+
+        .timeline-item h4 {
+            color: #1e3c72;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .timeline-item .date {
+            color: #4a90e2;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .tool-badge {
+            background: linear-gradient(145deg, #28a745, #20c997);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 25px;
+            text-align: center;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .tool-badge:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(40, 167, 69, 0.3);
+        }
+
+        .findings-list {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .findings-list h4 {
+            color: #856404;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .findings-list li {
+            color: #856404;
+            margin-bottom: 8px;
+        }
+
+        .chart-placeholder {
+            background: linear-gradient(145deg, #e9ecef, #f8f9fa);
+            border: 2px dashed #4a90e2;
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            margin: 25px 0;
+            color: #4a90e2;
+            font-size: 1.1rem;
+        }
+
+        .resources {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .resource-link {
+            background: linear-gradient(145deg, #4a90e2, #1e3c72);
+            color: white;
+            padding: 18px 25px;
+            border-radius: 12px;
+            text-decoration: none;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
+
+        .resource-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(74, 144, 226, 0.3);
+            color: white;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #e9ecef;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .project-card {
+                padding: 25px;
+            }
+            
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .team-grid, .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .metric-card .number {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="project-card">
+            <div class="header">
+                <h1>Customer Behavior Analytics</h1>
+                <p class="subtitle">E-commerce Data Analysis & Insights</p>
+                <p class="course-info">Data Analytics & Business Intelligence - Fall 2024</p>
+            </div>
+
+            <!-- Team Members Section -->
+            <div class="section">
+                <h2 class="section-title">Analytics Team</h2>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <h3>Giovanni Munoz</h3>
+                        
+                    </div>
+                    <div class="team-member">
+                        <h3>Tehreem Butt</h3>
+                        
+                    </div>
+                    <div class="team-member">
+                        <h3>Luis Medina</h3>
+                       
+                    </div>
+                    <div class="team-member">
+                        <h3>Patrick Gregorio</h3>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Metrics -->
+            <div class="section">
+                <h2 class="section-title">Key Analytics Metrics</h2>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="number">50K+</div>
+                        <div class="label">Customer Records</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="number">2.3M</div>
+                        <div class="label">Transactions Analyzed</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="number">85%</div>
+                        <div class="label">Model Accuracy</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="number">15</div>
+                        <div class="label">Key Insights Found</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Overview -->
+            <div class="section">
+                <h2 class="section-title">Project Overview</h2>
+                <div class="content-area data-content">
+                    <h3>Business Problem</h3>
+                    <p>Our e-commerce client needed to understand customer purchasing behavior, identify high-value customer segments, and optimize marketing strategies to increase customer lifetime value and reduce churn rates.</p>
+                    
+                    <h3>Data Sources</h3>
+                    <ul>
+                        <li>Customer transaction database (2 years of data)</li>
+                        <li>Website clickstream analytics</li>
+                        <li>Customer demographic information</li>
+                        <li>Product catalog and category data</li>
+                        <li>Marketing campaign performance metrics</li>
+                    </ul>
+                    
+                    <h3>Analytical Approach</h3>
+                    <p>We employed a comprehensive data analytics methodology including exploratory data analysis, customer segmentation using clustering algorithms, predictive modeling for churn prediction, and cohort analysis for customer lifetime value assessment.</p>
+                </div>
+            </div>
+
+            <!-- Tools & Technologies -->
+            <div class="section">
+                <h2 class="section-title">Tools & Technologies</h2>
+                <div class="tools-grid">
+                    <div class="tool-badge">Python</div>
+                    <div class="tool-badge">Pandas & NumPy</div>
+                    <div class="tool-badge">Scikit-learn</div>
+                    <div class="tool-badge">Matplotlib & Seaborn</div>
+                    <div class="tool-badge">Tableau</div>
+                    <div class="tool-badge">SQL</div>
+                    <div class="tool-badge">Jupyter Notebooks</div>
+                    <div class="tool-badge">Power BI</div>
+                </div>
+            </div>
+
+            <!-- Key Findings -->
+            <div class="section">
+                <h2 class="section-title">Key Findings & Insights</h2>
+                <div class="content-area">
+                    <div class="findings-list">
+                        <h4>🎯 Customer Segmentation Results</h4>
+                        <ul>
+                            <li>Identified 4 distinct customer segments: VIP (15%), Regular (45%), Occasional (30%), At-Risk (10%)</li>
+                            <li>VIP customers generate 60% of total revenue despite being 15% of the customer base</li>
+                            <li>At-Risk segment shows 75% probability of churning within 3 months</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="chart-placeholder">
+                        📊 Customer Segmentation Visualization
+                        <br>
+                        <em>(Interactive charts and dashboards would be embedded here)</em>
+                    </div>
+                    
+                    <div class="findings-list">
+                        <h4>💡 Behavioral Patterns</h4>
+                        <ul>
+                            <li>Peak purchasing occurs during evenings (6-9 PM) and weekends</li>
+                            <li>Mobile users have 23% higher conversion rates than desktop users</li>
+                            <li>Customers who use multiple payment methods have 40% higher lifetime value</li>
+                            <li>Product recommendations increase cross-selling by 35%</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timeline -->
+            <div class="section">
+                <h2 class="section-title">Project Timeline</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h4>Phase 1: Data Collection & Cleaning</h4>
+                        <p class="date">Weeks 1-2</p>
+                        <p>Gathered data from multiple sources, performed data quality assessment, cleaned and prepared datasets for analysis. Handled missing values and outliers.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Phase 2: Exploratory Data Analysis</h4>
+                        <p class="date">Weeks 3-4</p>
+                        <p>Conducted comprehensive EDA, identified patterns and trends, performed statistical analysis, and generated initial hypotheses about customer behavior.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Phase 3: Model Development</h4>
+                        <p class="date">Weeks 5-6</p>
+                        <p>Developed clustering models for segmentation, built predictive models for churn analysis, and created recommendation algorithms.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Phase 4: Validation & Insights</h4>
+                        <p class="date">Weeks 7-8</p>
+                        <p>Validated model performance, generated business insights, created interactive dashboards, and prepared final recommendations.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Business Impact -->
+            <div class="section">
+                <h2 class="section-title">Business Impact & Recommendations</h2>
+                <div class="content-area">
+                    <h3>Projected Business Impact</h3>
+                    <ul>
+                        <li><strong>Revenue Increase:</strong> 18-25% through targeted marketing to VIP segment</li>
+                        <li><strong>Churn Reduction:</strong> 30% reduction in customer churn through early intervention</li>
+                        <li><strong>Cost Optimization:</strong> 40% improvement in marketing ROI through better targeting</li>
+                        <li><strong>Customer Satisfaction:</strong> Enhanced personalization leading to improved customer experience</li>
+                    </ul>
+                    
+                    <h3>Strategic Recommendations</h3>
+                    <ul>
+                        <li>Implement personalized marketing campaigns for each customer segment</li>
+                        <li>Develop retention programs targeting at-risk customers</li>
+                        <li>Optimize mobile user experience to capitalize on higher conversion rates</li>
+                        <li>Expand product recommendation engine across all touchpoints</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Resources -->
+            <div class="section">
+                <h2 class="section-title">Project Resources</h2>
+                <div class="resources">
+                    <a href="#" class="resource-link"> Interactive Dashboard</a>
+                    <a href="#" class="resource-link"> Jupyter Notebooks</a>
+                    <a href="#" class="resource-link"> Data Visualizations</a>
+                    <a href="#" class="resource-link"> Technical Report</a>
+                    <a href="#" class="resource-link"> Business Presentation</a>
+                    <a href="#" class="resource-link"> Datasets & Models</a>
+                </div>
+            </div>
+
+            <!-- Progress Updates -->
+            <div class="section">
+                <h2 class="section-title">Project Status</h2>
+                <div class="content-area">
+                    <h3>Current Status: ✅ Complete</h3>
+                    <p><strong>Last Updated:</strong> September 11, 2024</p>
+                    <p>Project successfully completed with all deliverables submitted. The analytics insights have been presented to stakeholders and implementation roadmap has been approved. Next phase involves monitoring the business impact of recommended strategies.</p>
+                    
+                    <h3>Next Steps</h3>
+                    <ul>
+                        <li>Monitor implementation of recommended strategies</li>
+                        <li>Track business metrics and validate projected impact</li>
+                        <li>Refine models based on new data and feedback</li>
+                        <li>Prepare follow-up analysis for Q1 2025</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer">
+                <p>&copy; 2024 Customer Behavior Analytics Team | Data Analytics & Business Intelligence Course</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add interactive functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scrolling for internal links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Animation observer
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Animate elements on scroll
+            document.querySelectorAll('.team-member, .timeline-item, .metric-card, .content-area').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                observer.observe(el);
+            });
+
+            // Add counter animation for metrics
+            function animateCounter(element, target, duration) {
+                let start = 0;
+                const increment = target / (duration / 16); // 60fps
+                const timer = setInterval(() => {
+                    start += increment;
+                    if (start >= target) {
+                        element.textContent = formatNumber(target);
+                        clearInterval(timer);
+                    } else {
+                        element.textContent = formatNumber(Math.floor(start));
+                    }
+                }, 16);
+            }
+
+            function formatNumber(num) {
+                if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+                if (num >= 1000) return (num / 1000).toFixed(0) + 'K';
+                return num.toString();
+            }
+
+            // Trigger counter animations when metrics section is visible
+            const metricsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counters = entry.target.querySelectorAll('.number');
+                        const values = [50000, 2300000, 85, 15];
+                        counters.forEach((counter, index) => {
+                            animateCounter(counter, values[index], 2000);
+                        });
+                        metricsObserver.unobserve(entry.target);
+                    }
+                });
+            });
+
+            const metricsSection = document.querySelector('.metrics-grid');
+            if (metricsSection) {
+                metricsObserver.observe(metricsSection);
+            }
+        });
+    </script>
+</body>
+</html>
