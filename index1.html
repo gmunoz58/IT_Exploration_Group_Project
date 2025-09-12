@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IT Field Deep Dive: Data & Analytics</title>
+  <style>
+    :root{
+      --bg:#0f172a;          /* slate-900 */
+      --card:#0b1226;        /* deep navy */
+      --ink:#e5e7eb;         /* gray-200 */
+      --muted:#9ca3af;       /* gray-400 */
+      --accent:#7c3aed;      /* violet-600 */
+      --accent-2:#06b6d4;    /* cyan-500 */
+      --ok:#10b981;          /* emerald-500 */
+      --warn:#f59e0b;        /* amber-500 */
+      --bad:#ef4444;         /* red-500 */
+      --chip:#111827;        /* gray-900 */
+      --chip-br:#374151;     /* gray-700 */
+      --ring: 0 0 0 3px rgba(124,58,237,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:radial-gradient(1200px 800px at 10% 0%, rgba(124,58,237,.25), transparent 60%), radial-gradient(1200px 800px at 100% 30%, rgba(6,182,212,.18), transparent 60%), var(--bg);color:var(--ink);font:16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji"}
+    a{color:inherit}
+    .wrap{max-width:1100px;margin:0 auto;padding:28px}
+    header{display:grid;gap:10px;align-items:center;margin:18px 0 28px}
+    .title{font-size: clamp(28px, 3.6vw, 44px);font-weight:800;letter-spacing:.2px}
+    .subtitle{color:var(--muted)}
+    .badge{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(90deg, rgba(124,58,237,.18), rgba(6,182,212,.18));border:1px solid rgba(124,58,237,.35);padding:6px 10px;border-radius:999px;font-weight:600}
+
+    .grid{display:grid;gap:18px}
+    .two{grid-template-columns: repeat(2, minmax(0,1fr))}
+    .three{grid-template-columns: repeat(3, minmax(0,1fr))}
+    @media (max-width:920px){.two,.three{grid-template-columns:1fr}}
+
+    section.card{background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.08);backdrop-filter:saturate(140%) blur(12px);border-radius:18px;padding:22px 22px 18px;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+    h2{font-size: clamp(20px, 2.4vw, 26px);margin:0 0 12px}
+    h3{margin:16px 0 8px;font-size:18px}
+    p,li{color:#cbd5e1}
+    ul{margin:8px 0 0 18px}
+    .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+    .chip{background:var(--chip);border:1px solid var(--chip-br);padding:8px 11px;border-radius:999px;font-weight:600}
+
+    .quote{border-left:4px solid rgba(124,58,237,.65);padding:10px 14px;margin:10px 0;background:rgba(124,58,237,.08);border-radius:8px}
+    .muted{color:var(--muted)}
+
+    /* Interactive blocks */
+    .quiz, .match{display:grid;gap:14px;margin-top:8px}
+    .q{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px}
+    .q h4{margin:0 0 8px;font-size:16px}
+    .opts{display:grid;gap:8px}
+    .opt{padding:10px;border:1px solid rgba(255,255,255,.12);border-radius:10px;cursor:pointer;background:#0e152e}
+    .opt.correct{border-color:rgba(16,185,129,.6);box-shadow:var(--ring)}
+    .opt.wrong{border-color:rgba(239,68,68,.6);animation:shake .25s linear}
+    @keyframes shake{25%{transform:translateX(3px)}50%{transform:translateX(-3px)}75%{transform:translateX(2px)}}
+    .quiz-footer{display:flex;align-items:center;justify-content:space-between;margin-top:6px}
+    .btn{background:linear-gradient(90deg, var(--accent), var(--accent-2));color:white;border:none;border-radius:12px;padding:10px 14px;font-weight:700;cursor:pointer}
+    .btn:disabled{opacity:.35;cursor:not-allowed}
+
+    /* Drag and drop */
+    .match-grid{display:grid;gap:14px;grid-template-columns:repeat(2, minmax(0,1fr))}
+    .drag, .drop{padding:10px;border:1px dashed rgba(255,255,255,.22);border-radius:10px;background:rgba(255,255,255,.03)}
+    .drag{cursor:grab}
+    .drop{min-height:54px}
+    .drop.filled{border-color:rgba(124,58,237,.6)}
+
+    footer{display:grid;place-items:center;margin:36px 0 10px;color:var(--muted)}
+    .tiny{font-size:12px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <span class="badge">CIS 4860 · Week 5 Presentation</span>
+      <div class="title">IT Field Deep Dive: Data &amp; Analytics</div>
+      <div class="subtitle">What the field is, careers, insights from 5 Business Analysts, and a quick interactive challenge.</div>
+    </header>
+
+    <!-- 1. What is Data & Analytics? -->
+    <section class="card" id="what">
+      <h2>1) What Is Data &amp; Analytics?</h2>
+      <div class="grid two">
+        <div>
+          <h3>Definition</h3>
+          <p>Collecting, cleaning, and transforming data to discover patterns, answer questions, and support decisions with evidence.</p>
+          <h3>Role in Organizations</h3>
+          <ul>
+            <li>Expose trends &amp; opportunities for growth</li>
+            <li>Support strategy and day‑to‑day operations</li>
+            <li>Measure outcomes and drive accountability</li>
+          </ul>
+          <h3>Daily Activities</h3>
+          <ul>
+            <li>Gather &amp; validate data from systems</li>
+            <li>Clean, join, and analyze datasets</li>
+            <li>Build dashboards &amp; explain insights to stakeholders</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Key Tools (from our BA survey)</h3>
+          <div class="chips" id="toolChips"></div>
+          <div class="quote"><em>“The classic answer is: it depends on the day. Being a BA is dynamic—your scope shifts with the project and the team.”</em></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Career Exploration -->
+    <section class="card" id="careers">
+      <h2>2) Career Exploration</h2>
+      <div class="grid three">
+        <div>
+          <h3>Entry‑Level</h3>
+          <ul>
+            <li><strong>Data Analyst</strong> — reports, dashboards, stakeholder support</li>
+            <li><strong>BI Analyst</strong> — visualization (Power BI/Tableau), KPIs</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Mid‑Level</h3>
+          <ul>
+            <li><strong>Data Engineer</strong> — pipelines, quality, scalable data</li>
+            <li><strong>ML Engineer</strong> — predictive models &amp; automation</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Senior</h3>
+          <ul>
+            <li><strong>Data Scientist</strong> — advanced stats/ML aligned to strategy</li>
+            <li><strong>Business Analyst</strong> — requirements, process, decision support</li>
+          </ul>
+        </div>
+      </div>
+      <h3>Core Skills &amp; Certifications</h3>
+      <ul>
+        <li><strong>Skills:</strong> SQL, Python/R, Excel, Power BI/Tableau, communication</li>
+        <li><strong>Certs:</strong> Google Data Analytics, AWS/Azure Data, Microsoft Power BI, ICCP</li>
+      </ul>
+    </section>
+
+    <!-- 3. Professional Interviews (BA Survey) -->
+    <section class="card" id="interviews">
+      <h2>3) Professional Interviews (5 BAs)</h2>
+      <div class="grid two">
+        <div>
+          <h3>Career Journeys — Highlights</h3>
+          <div id="journeys"></div>
+        </div>
+        <div>
+          <h3>Day‑to‑Day — What They Do</h3>
+          <div id="daytoday"></div>
+          <h3 style="margin-top:10px">What They Enjoy vs. Challenges</h3>
+          <div id="enjoy"></div>
+          <div id="challenges" style="margin-top:6px"></div>
+        </div>
+      </div>
+      <h3>Advice to Students</h3>
+      <div id="advice" class="grid two"></div>
+    </section>
+
+    <!-- 4. Interactive Elements -->
+    <section class="card" id="interactive">
+      <h2>4) Interactive: Quick Quiz + Role Match (2 minutes)</h2>
+      <div class="grid two">
+        <!-- Quiz -->
+        <div class="quiz">
+          <h3>Multiple‑Choice Quiz</h3>
+          <div id="quiz"></div>
+          <div class="quiz-footer">
+            <button class="btn" id="submitQuiz">Submit</button>
+            <div id="score" class="muted">Answer all and submit</div>
+          </div>
+        </div>
+
+        <!-- Drag & Drop Match -->
+        <div class="match">
+          <h3>Match Role → Key Skill</h3>
+          <div class="match-grid">
+            <div>
+              <div class="drag" draggable="true" data-role="Data Analyst">Data Analyst</div>
+              <div class="drag" draggable="true" data-role="Business Analyst">Business Analyst</div>
+              <div class="drag" draggable="true" data-role="Data Engineer">Data Engineer</div>
+              <div class="drag" draggable="true" data-role="Data Scientist">Data Scientist</div>
+              <div class="drag" draggable="true" data-role="BI Analyst">BI Analyst</div>
+            </div>
+            <div>
+              <div class="drop" data-accept="Data Analyst">Dashboards & SQL</div>
+              <div class="drop" data-accept="Business Analyst">Requirements & Communication</div>
+              <div class="drop" data-accept="Data Engineer">ETL Pipelines</div>
+              <div class="drop" data-accept="Data Scientist">Modeling & ML</div>
+              <div class="drop" data-accept="BI Analyst">Visualization & KPIs</div>
+            </div>
+          </div>
+          <div class="quiz-footer">
+            <button class="btn" id="checkMatch">Check</button>
+            <div id="matchResult" class="muted">Drag each role onto its best‑fit skill area.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Conclusion -->
+    <section class="card" id="takeaways">
+      <h2>5) Conclusion &amp; Key Takeaways</h2>
+      <ul>
+        <li>Data &amp; Analytics powers decisions in every industry.</li>
+        <li>Multiple career paths exist — technical, analytical, and business‑facing.</li>
+        <li>From our BA survey: strong emphasis on communication + SQL + systems knowledge.</li>
+        <li>Start building: practice SQL, ship a dashboard, and tell the story behind the data.</li>
+      </ul>
+    </section>
+
+    <footer>
+      <div class="tiny">Team: Tehreem Butt · Patrick Gregorio · Luis Medina · Giovanni Muñoz — Fall 2025</div>
+    </footer>
+  </div>
+
+  <script>
+    // === Data injected from your BA survey summary (derived in ChatGPT) ===
+const SURVEY = {
+  top_tools: ["R","SQL","Zoom","Banner"],
+  journeys: [
+    "I started my career in operations and because I had deep expertise in operations I was asked to develop new products and reports. Eventually that became a full time thing and I made a career switch from Operations to Product and now to Business Analyst. — Haik Kosoyan",
+    "Job stability/security, decent pay, and recognizing the importance of systems. — Melvie Ordinario",
+    "I originally started as a software trainer. After a few years of developing my skill set and gaining more interest in the software development world, I decided to apply for a business analyst role at the same company and was offered the position. Since then, I've worked as a software product analyst, business analyst, and data manager for a variety of companies. — Nate Mechtel",
+    "I like speaking with people and <strong><u>understanding their work processes</u></strong>. I like solving problems by focusing on solutions so BA was a role that fit my strengths. — Jaspal Singh"
+  ],
+  day_to_day: [
+    "Tactically, helping customers troubleshoot any problems they are having with systems. Strategically, collecting data from stakeholders to provide decision makers with the information they need to make a well informed business decision and then helping the implementation of those strategic decisions. — Haik Kosoyan",
+    "This may vary depending on how many projects is being worked on and this also depends in the company's processes and culture. I've learned the private sector and private sector has different practices. Being new here, I'll share my prior experience. I normally start my day by checking emails and my calendars to help me plan out on what can be done during the day as days may be filled by meetings. Then the next thing to do would be in between meetings or during meetings. Going through tickets, prioritizing any escalations. Working on analysis related to projects such as doing testing, data validated etc. Hosting meetings and acting as the project manager maybe part of the daily task, then providing updates to leaders such as VPs, Directors, and others. Coordinating with different departments/functional users on testing and validations. Running reports, analyzing system issue, documenting processes, etc. Being able to assist/support HR for anything system update or technical need. — Melvie Ordinario",
+    "The classic answer is: <strong><u>it depends on the day</u></strong>. Being a BA is very much a jack-of-all-trades type of role. On some days, you may be attending trainings and project meetings; on others, you might be working on reports and analysis, writing requirements, or troubleshooting issues. You could also be documenting processes, conducting testing, presenting project updates, or even training end users. Ultimately, the day-to-day work varies widely depending on the organization and the structure of the team. — Nate Mechtel",
+    "A BA role should be heavy on projects and less on day-to-day work but in higher ed the focus is on day-to-day, operational, and Chancellor related work. I have a lot of tickets from faculty and students. I have a lot of tickets for operational work and project work. — Jaspal Singh"
+  ],
+  enjoy: [
+    "I enjoy my job because I get to act as a <strong><u>bridge between people and technology</u></strong>. I love helping teams overcome technical obstacles so they can focus on their strengths. Seeing people empowered to do their best work and knowing I helped remove barriers to make that possible gives me a lot of fulfillment. — Haik Kosoyan",
+    "I enjoy the challenge for me to think outside of the box and to be creative and inventive when resolving a problem or issue. Being able to help others and to make improvement on processes. — Melvie Ordinario",
+    "I enjoy <strong><u>being the liaison</u></strong> between end users and technical staff. You can get creative/innovative when you're attempting to translate requirements into a proper solution. You also get to learn more than most about technology. — Nate Mechtel",
+    "Solving problems with creative solutions with the resources we have available by collaborating with some great people in ITS. — Jaspal Singh"
+  ],
+  challenges: [
+    "One of the biggest challenges is balancing technical depth with the pressure to deliver everything right away. Phased rollouts are usually the best option, but they can feel slower or push back. I handle it by being clear about what's coming now versus later, and keeping everyone aligned on the long-term goal. — Haik Kosoyan",
+    "Limitations, sometimes we discover that we're unable to do certain things so we need to be resourceful and creative to find a different work around. — Melvie Ordinario",
+    "Since projects tend to be major <strong><u>changes</u></strong>, you'll always deal with pushback from users. Part of it is just getting used to finding compromises as it can be difficult to handle capabilities with tiny timelines and lots of demands. Also just staying up to date on technology can be overwhelming as things can change very rapidly. — Nate Mechtel",
+    "Understanding and knowing the <strong><u>scope of what BAs do and don't do</u></strong> in the scope of the organization. When you cannot draw that line then work becomes out of scope, I find myself spending time on things that are not my core duties. — Jaspal Singh"
+  ],
+  advice: [
+    "I'd tell students to <strong><u>find an industry or field you're passionate about</u></strong> and apply their data and analytics skills there. The data tells a story, and when you care about the subject, it's much easier to interpret it, uncover insights, and make an impact. — Haik Kosoyan",
+    "I've learned that at times building your experience plays a bigger part more than the education. It's good to be exposed in a job that will help you achieve your career goal. — Melvie Ordinario",
+    "As important as it is to have your <strong><u>technical background</u></strong>, it is just as important to be able to communicate to others who are not as technically minded. Miscommunication can lead into misunderstood requirements/solutions which can end up in dire situations by the time a project or case of yours wraps up. — Nate Mechtel",
+    "<strong><u>Be solid with the technical skills</u></strong> but always spend time on understanding and working on communication skills. It's important to speak with people and get to the bottom of what they need or what they mean by listening to people and interpreting what they're really trying to say. — Jaspal Singh"
+  ]
+};
+
+
+    // Populate tools
+    const chips = document.getElementById('toolChips');
+    SURVEY.top_tools.forEach(t=>{
+      const s = document.createElement('span');
+      s.className='chip';
+      s.textContent=t;
+      chips.appendChild(s);
+    });
+
+    // Populate journeys/day-to-day/enjoy/challenges/advice
+    function addList(id, arr){
+      const el = document.getElementById(id);
+      arr.forEach(txt=>{
+        const q = document.createElement('div');
+        q.className='quote';
+        q.innerHTML = `<em>“${txt}”</em>`;
+        el.appendChild(q);
+      })
+    }
+    addList('journeys', SURVEY.journeys);
+    addList('daytoday', SURVEY.day_to_day);
+    addList('enjoy', SURVEY.enjoy);
+    addList('challenges', SURVEY.challenges);
+
+    // Advice cards
+    const advice = document.getElementById('advice');
+    SURVEY.advice.forEach(a=>{
+      const card = document.createElement('div');
+      card.className='q';
+      card.innerHTML = `<div>${a}</div>`;
+      advice.appendChild(card);
+    })
+
+    // === Quiz ===
+    const QUIZ = [
+      { q:"Which tool was most commonly mentioned by our BAs?", opts:["PowerPoint","SQL","Photoshop","React"], answer:1 },
+      { q:"A Business Analyst primarily helps with…", opts:["Server maintenance","Requirements & decision support","GPU tuning","Network cabling"], answer:1 },
+      { q:"Which role focuses on building data pipelines?", opts:["Data Engineer","BI Analyst","Data Scientist","Business Analyst"], answer:0 },
+      { q:"Best first portfolio piece for students is…", opts:["A meme page","A dashboard + short write‑up","A 100‑page thesis","Only a résumé"], answer:1 },
+      { q:"Common challenge BAs reported:", opts:["Too much free time","Ambiguous requirements","Lack of coffee shops","No meetings"], answer:1 }
+    ];
+
+    const quizHost = document.getElementById('quiz');
+    const answers = new Array(QUIZ.length).fill(null);
+
+    QUIZ.forEach((item, i)=>{
+      const q = document.createElement('div');
+      q.className='q';
+      q.innerHTML = `<h4>${i+1}. ${item.q}</h4>`;
+      const opts = document.createElement('div');
+      opts.className='opts';
+      item.opts.forEach((o,idx)=>{
+        const btn = document.createElement('button');
+        btn.type='button';
+        btn.className='opt';
+        btn.textContent=o;
+        btn.addEventListener('click',()=>{
+          // clear states in this question
+          [...opts.children].forEach(c=>c.classList.remove('correct','wrong'));
+          answers[i]=idx;
+          btn.classList.add(idx===item.answer?'correct':'wrong');
+        });
+        opts.appendChild(btn);
+      });
+      q.appendChild(opts);
+      quizHost.appendChild(q);
+    });
+
+    document.getElementById('submitQuiz').addEventListener('click',()=>{
+      const correct = answers.reduce((acc,a,i)=> acc + (a===QUIZ[i].answer?1:0), 0);
+      const score = document.getElementById('score');
+      if(answers.some(a=>a===null)){
+        score.textContent = 'Please answer all questions.';
+        return;
+      }
+      score.textContent = `Score: ${correct}/${QUIZ.length}`;
+    });
+
+    // === Drag & Drop Matching ===
+    const drags = document.querySelectorAll('.drag');
+    const drops = document.querySelectorAll('.drop');
+
+    drags.forEach(d=>{
+      d.addEventListener('dragstart', e=>{
+        e.dataTransfer.setData('text/plain', d.dataset.role);
+      });
+    });
+
+    drops.forEach(drop=>{
+      drop.addEventListener('dragover', e=>{ e.preventDefault(); });
+      drop.addEventListener('drop', e=>{
+        e.preventDefault();
+        const role = e.dataTransfer.getData('text/plain');
+        drop.textContent = `${drop.textContent}  —  ${role}`;
+        drop.classList.add('filled');
+        drop.dataset.dropped = role;
+      });
+    });
+
+    document.getElementById('checkMatch').addEventListener('click',()=>{
+      let correct=0; let total=0;
+      drops.forEach(d=>{ total++; if(d.dataset.dropped === d.dataset.accept) correct++; });
+      const out = document.getElementById('matchResult');
+      out.textContent = `Matched correctly: ${correct}/${total}`;
+      out.style.color = correct===total ? 'var(--ok)' : (correct>=3? 'var(--warn)' : 'var(--bad)');
+    });
+  </script>
+</body>
+</html>

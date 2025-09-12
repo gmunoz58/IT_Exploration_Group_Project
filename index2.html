@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IT Field Deep Dive: Data & Analytics</title>
+  <style>
+    :root{
+      --bg:#0f172a;          /* page background */
+      --card:#111827;        /* card background */
+      --ink:#e5e7eb;         /* text */
+      --muted:#9ca3af;       /* muted text */
+      --accent:#7c3aed;      /* violet */
+      --accent-2:#06b6d4;    /* cyan */
+      --ok:#10b981;          /* green */
+      --bad:#ef4444;         /* red */
+      --chip:#0b1226;        /* chip bg */
+      --chip-br:#374151;     /* chip border */
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+    .wrap{max-width:1100px;margin:0 auto;padding:28px}
+    header{margin:18px 0 24px}
+    .title{font-size:clamp(28px,3.6vw,44px);font-weight:800}
+    .subtitle{color:var(--muted)}
+    .badge{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(90deg, rgba(124,58,237,.18), rgba(6,182,212,.18));border:1px solid rgba(124,58,237,.35);padding:6px 10px;border-radius:999px;font-weight:600}
+    section.card{background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:22px;margin-bottom:24px}
+    h2{font-size:clamp(20px,2.4vw,26px);margin:0 0 12px}
+    h3{margin:16px 0 8px;font-size:18px}
+    p,li{color:#cbd5e1}
+    ul{margin:8px 0 0 18px}
+    .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+    .chip{background:var(--chip);border:1px solid var(--chip-br);padding:8px 11px;border-radius:999px;font-weight:600;cursor:grab}
+    .quote{border-left:4px solid rgba(124,58,237,.65);padding:10px 14px;margin:10px 0;background:rgba(124,58,237,.08);border-radius:8px}
+    .muted{color:var(--muted)}
+
+    /* Slides */
+    .slide{display:none}
+    .slide.active{display:block}
+    .navbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:10px 0 18px}
+    .steps{font-weight:700;color:var(--muted)}
+    .controls{display:flex;gap:8px}
+    .arrow,.btn{background:linear-gradient(90deg,var(--accent),var(--accent-2));border:none;color:#fff;border-radius:12px;padding:8px 12px;font-weight:700;cursor:pointer}
+    .arrow:disabled{opacity:.35;cursor:not-allowed}
+
+    /* DnD targets */
+    .target{border-left:4px solid rgba(255,255,255,.15);transition:all .25s ease}
+    .target.correct{border-color:var(--ok);box-shadow:0 0 0 2px rgba(16,185,129,.35) inset}
+    .target.bad{border-color:var(--bad)}
+    .shake{animation:shake .25s linear}
+    @keyframes shake{25%{transform:translateX(3px)}50%{transform:translateX(-3px)}75%{transform:translateX(2px)}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <span class="badge">CIS 4860 · Week 5 Presentation</span>
+      <div class="title">IT Field Deep Dive: Data &amp; Analytics</div>
+      <div class="subtitle">What the field is, careers, insights from 5 Business Analysts, and a quick interactive challenge.</div>
+    </header>
+
+    <div class="navbar">
+      <div class="steps" id="stepLabel">Section 1/5</div>
+      <div class="controls">
+        <button class="arrow" id="prevBtn" aria-label="Previous">◀</button>
+        <button class="arrow" id="nextBtn" aria-label="Next">▶</button>
+      </div>
+    </div>
+
+    <!-- Slide 1 -->
+    <section class="card slide active" data-step="1" id="what">
+      <h2>1) What Is Data &amp; Analytics?</h2>
+      <h3>Definition</h3>
+      <p>Collecting, cleaning, and transforming data to discover patterns, answer questions, and support decisions with evidence.</p>
+      <h3>Role in Organizations</h3>
+      <ul>
+        <li>Expose trends &amp; opportunities for growth</li>
+        <li>Support strategy and day‑to‑day operations</li>
+        <li>Measure outcomes and drive accountability</li>
+      </ul>
+      <h3>Daily Activities</h3>
+      <ul>
+        <li>Gather &amp; validate data from systems</li>
+        <li>Clean, join, and analyze datasets</li>
+        <li>Build dashboards &amp; explain insights to stakeholders</li>
+      </ul>
+    </section>
+
+    <!-- Slide 2 -->
+    <section class="card slide" data-step="2" id="careers">
+      <h2>2) Career Exploration</h2>
+      <div>
+        <h3>Entry‑Level</h3>
+        <ul>
+          <li><strong>Data Analyst</strong> — reports, dashboards, stakeholder support</li>
+          <li><strong>BI Analyst</strong> — visualization (Power BI/Tableau), KPIs</li>
+        </ul>
+        <h3>Mid‑Level</h3>
+        <ul>
+          <li><strong>Data Engineer</strong> — pipelines, quality, scalable data</li>
+          <li><strong>ML Engineer</strong> — predictive models &amp; automation</li>
+        </ul>
+        <h3>Senior</h3>
+        <ul>
+          <li><strong>Data Scientist</strong> — advanced stats/ML aligned to strategy</li>
+          <li><strong>Business Analyst</strong> — requirements, process, decision support</li>
+        </ul>
+        <h3>Core Skills &amp; Certifications</h3>
+        <ul>
+          <li><strong>Skills:</strong> SQL, Python/R, Excel, Power BI/Tableau, communication</li>
+          <li><strong>Certs:</strong> Google Data Analytics, AWS/Azure Data, Microsoft Power BI, ICCP</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Slide 3 -->
+    <section class="card slide" data-step="3" id="interviews">
+      <h2>3) Professional Interviews: Voices from 5 Business Analysts</h2>
+
+      <h3>Career Journeys</h3>
+      <div class="quote"><em>“I started my career in operations and because I had deep expertise in operations I was asked to develop new products and reports. Eventually that became a full time thing and I made a career switch from Operations to Product and now to Business Analyst.”</em> — <strong>Haik K.</strong></div>
+      <div class="quote"><em>“Job stability/security, decent pay, and recognizing the importance of systems.”</em> — <strong>Melvie O.</strong></div>
+      <div class="quote"><em>“I originally started as a software trainer … Since then, I've worked as a software product analyst, business analyst, and data manager for a variety of companies.”</em> — <strong>Nate M.</strong></div>
+      <div class="quote"><em>“I like speaking with people and <strong><u>understanding their work processes</u></strong> … BA was a role that fit my strengths.”</em> — <strong>Jaspal S.</strong></div>
+
+      <h3>Day‑to‑Day Work</h3>
+      <div class="quote"><em>“Tactically, helping customers troubleshoot … <strong><u>Strategically, collecting data from stakeholders</u></strong> … then helping implementation.”</em> — <strong>Haik K.</strong></div>
+      <div class="quote"><em>“Checking emails, tickets, prioritizing escalations, doing testing, running reports, <strong><u>documenting processes</u></strong> …”</em> — <strong>Melvie O.</strong></div>
+      <div class="quote"><em>“The classic answer is: <strong><u>it depends on the day</u></strong> … writing requirements, documenting processes, conducting testing …”</em> — <strong>Nate M.</strong></div>
+      <div class="quote"><em>“A BA role should be heavy on projects … in higher ed I have a lot of tickets from faculty and students.”</em> — <strong>Jaspal S.</strong></div>
+
+      <h3>What They Enjoy</h3>
+      <div class="quote"><em>“I enjoy my job because I get to act as a <strong><u>bridge between people and technology</u></strong> …”</em> — <strong>Haik K.</strong></div>
+      <div class="quote"><em>“Think outside the box … <strong><u>help others</u></strong> and improve processes.”</em> — <strong>Melvie O.</strong></div>
+      <div class="quote"><em>“I enjoy <strong><u>being the liaison</u></strong> between end users and technical staff …”</em> — <strong>Nate M.</strong></div>
+      <div class="quote"><em>“Solving problems with <strong><u>creative solutions</u></strong> with great people in ITS.”</em> — <strong>Jaspal S.</strong></div>
+
+      <h3>Advice to Students</h3>
+      <div class="quote"><em>“<strong><u>Find an industry you're passionate about</u></strong> and apply your data skills there …”</em> — <strong>Haik K.</strong></div>
+      <div class="quote"><em>“Sometimes <strong><u>experience matters more than education</u></strong> … get exposure in a job that helps your goal.”</em> — <strong>Melvie O.</strong></div>
+      <div class="quote"><em>“Technical background is important, but so is <strong><u>communicating with non‑technical audiences</u></strong> …”</em> — <strong>Nate M.</strong></div>
+      <div class="quote"><em>“<strong><u>Be solid with technical skills</u></strong> and invest in communication — listen and interpret.”</em> — <strong>Jaspal S.</strong></div>
+      <div class="quote"><em>“Start with <strong><u>SQL and a BI tool</u></strong> like Power BI or Tableau to build a foundation.”</em> — <strong>Carl Y.</strong></div>
+    </section>
+
+    <!-- Slide 4 -->
+    <section class="card slide" data-step="4" id="interactive">
+      <h2>4) Interactive: Quick Quiz + Role Match</h2>
+
+      <h3>Multiple‑Choice</h3>
+      <div id="quiz"></div>
+      <div style="margin-top:8px;display:flex;gap:8px;align-items:center">
+        <button class="btn" id="submitQuiz" type="button">Submit Score</button>
+        <div class="muted" id="score">Answer the questions, then Submit or press ▶</div>
+      </div>
+
+      <h3 style="margin-top:14px">Match Role → Skill</h3>
+      <div id="matchArea" style="margin-top:6px">
+        <div draggable="true" class="chip" data-role="Data Analyst">Data Analyst</div>
+        <div draggable="true" class="chip" data-role="Business Analyst">Business Analyst</div>
+        <div draggable="true" class="chip" data-role="Data Engineer">Data Engineer</div>
+        <div draggable="true" class="chip" data-role="Data Scientist">Data Scientist</div>
+        <div draggable="true" class="chip" data-role="BI Analyst">BI Analyst</div>
+        <ul>
+          <li class="quote target" data-accept="Data Analyst">Dashboards &amp; SQL</li>
+          <li class="quote target" data-accept="Business Analyst">Requirements &amp; Communication</li>
+          <li class="quote target" data-accept="Data Engineer">ETL Pipelines</li>
+          <li class="quote target" data-accept="Data Scientist">Modeling &amp; ML</li>
+          <li class="quote target" data-accept="BI Analyst">Visualization &amp; KPIs</li>
+        </ul>
+        <div style="display:flex;gap:10px;align-items:center;margin-top:8px">
+          <div class="muted" id="matchResult">Drag each role to its best‑fit skill area.</div>
+          <button class="btn" id="resetMatch" type="button">Reset Matches</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 5 -->
+    <section class="card slide" data-step="5" id="takeaways">
+      <h2>5) Conclusion &amp; Key Takeaways</h2>
+      <ul>
+        <li>Data &amp; Analytics powers decisions in every industry.</li>
+        <li>Multiple paths: technical, analytical, and business‑facing.</li>
+        <li>From our BA survey: communication + SQL + systems context matter most.</li>
+        <li>Start building now: a SQL query, a dashboard, and a short write‑up.</li>
+      </ul>
+    </section>
+  </div>
+
+  <script>
+    // ===================== SLIDE NAV =====================
+    const slides=[...document.querySelectorAll('.slide')];
+    let idx=0; const prevBtn=document.getElementById('prevBtn');
+    const nextBtn=document.getElementById('nextBtn'); const stepLabel=document.getElementById('stepLabel');
+    function render(){slides.forEach((s,i)=>s.classList.toggle('active',i===idx)); prevBtn.disabled=idx===0; nextBtn.disabled=idx===slides.length-1; stepLabel.textContent=`Section ${idx+1}/${slides.length}`;}
+    prevBtn.addEventListener('click',()=>{if(idx>0){idx--;render();}});
+    nextBtn.addEventListener('click',()=>{if(idx<slides.length-1){try{if(slides[idx].id==='interactive') scoreQuiz();}catch(e){} idx++;render();}});
+    window.addEventListener('keydown',e=>{if(e.key==='ArrowRight')nextBtn.click();if(e.key==='ArrowLeft')prevBtn.click();});
+
+    // ===================== QUIZ =====================
+    const QUIZ=[
+      {q:'Which tool did multiple BAs emphasize?',opts:['PowerPoint','SQL','Photoshop','React'],answer:1},
+      {q:'A Business Analyst primarily helps with…',opts:['Server maintenance','Requirements & decision support','GPU tuning','Network cabling'],answer:1},
+      {q:'Which role builds data pipelines?',opts:['Data Engineer','BI Analyst','Data Scientist','Business Analyst'],answer:0}
+    ];
+    const quizHost=document.getElementById('quiz');
+    const answers=new Array(QUIZ.length).fill(null);
+    QUIZ.forEach((item,i)=>{const wrap=document.createElement('div');wrap.className='quote';const h=document.createElement('div');h.innerHTML=`<strong>${i+1}. ${item.q}</strong>`;const opts=document.createElement('div');item.opts.forEach((o,j)=>{const b=document.createElement('button');b.className='chip';b.type='button';b.textContent=o;b.addEventListener('click',()=>{answers[i]=j;[...opts.children].forEach(c=>c.style.outline='');b.style.outline='2px solid #7c3aed';});opts.appendChild(b);});wrap.appendChild(h);wrap.appendChild(opts);quizHost.appendChild(wrap);});
+    function scoreQuiz(){const scoreEl=document.getElementById('score');if(!scoreEl)return;if(answers.some(a=>a===null)){scoreEl.textContent='Please answer all questions.';return;}const correct=answers.reduce((acc,a,i)=>acc+(a===QUIZ[i].answer?1:0),0);scoreEl.textContent=`Score: ${correct}/${QUIZ.length}`;}
+    document.getElementById('submitQuiz').addEventListener('click',scoreQuiz);
+
+    // ===================== DND MATCH (simple) =====================
+    const drags=document.querySelectorAll('#matchArea [draggable="true"]');
+    const drops=document.querySelectorAll('#matchArea [data-accept]');
+    drags.forEach(d=>d.addEventListener('dragstart',e=>e.dataTransfer.setData('text/plain',d.dataset.role)));
+    drops.forEach(drop=>{
+      drop.addEventListener('dragover',e=>e.preventDefault());
+      drop.addEventListener('drop',e=>{e.preventDefault(); if(drop.classList.contains('correct'))return; const role=e.dataTransfer.getData('text/plain'); if(role===drop.dataset.accept){drop.classList.add('correct'); drop.textContent=drop.textContent+' — '+role; const chip=[...drags].find(c=>c.dataset.role===role); if(chip){chip.setAttribute('draggable','false');chip.style.opacity='0.5';chip.style.cursor='not-allowed';chip.setAttribute('aria-disabled','true');}} else {drop.classList.add('bad','shake'); setTimeout(()=>drop.classList.remove('bad','shake'),450);} const correct=[...drops].filter(x=>x.classList.contains('correct')).length; document.getElementById('matchResult').textContent=`Correct matches: ${correct}/${drops.length}`;});
+    });
+    document.getElementById('resetMatch').addEventListener('click',()=>{drops.forEach(d=>{d.classList.remove('correct','bad'); const map={"Data Analyst":"Dashboards & SQL","Business Analyst":"Requirements & Communication","Data Engineer":"ETL Pipelines","Data Scientist":"Modeling & ML","BI Analyst":"Visualization & KPIs"}; d.textContent=map[d.dataset.accept]||d.textContent;}); drags.forEach(c=>{c.setAttribute('draggable','true');c.style.opacity='1';c.style.cursor='grab';c.removeAttribute('aria-disabled');}); document.getElementById('matchResult').textContent='Drag each role to its best‑fit skill area.';});
+  </script>
+</body>
+</html>
